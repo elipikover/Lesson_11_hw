@@ -63,10 +63,7 @@ public class Lesson_11_hw {
     @Test(priority = 3)
     public void XMLTest() throws Exception {driver.get(getData("URL"));
         test.log(Status.PASS,"XML got URL from XML passed");
-
-
     }
-
     private static String getData (String keyName) throws Exception{
         File fXmlFile = new File("/Users/epikover/IdeaProjects/Java/QA_Experts/Lesson 11/Lesson_11_hw/src/main/resources/data.xml");
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -74,13 +71,15 @@ public class Lesson_11_hw {
         Document doc = dBuilder.parse(fXmlFile);
         doc.getDocumentElement().normalize();
         return doc.getElementsByTagName(keyName).item(0).getTextContent();
+
     }
     @Test(priority = 4)
     public void JSONTest() throws Exception {
         Reader reader = Files.newBufferedReader(Paths.get(Constants.JSON_PATH));
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode parser = objectMapper.readTree(reader);
-        driver.get(parser.path("URL").asText());
+        String URL = parser.path("URL").asText();
+        driver.get(URL);
     }
 
 
